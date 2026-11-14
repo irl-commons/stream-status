@@ -1,0 +1,5 @@
+{
+  "description": "f as text instead of an integer.",
+  "cbor_hex": "a46162616161666131617401617600",
+  "expect": "reject"
+}

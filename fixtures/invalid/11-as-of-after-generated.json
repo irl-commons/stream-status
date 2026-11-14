@@ -1,0 +1,55 @@
+{
+  "description": "Evidence newer than the snapshot itself.",
+  "error": "as_of is later",
+  "snapshot": {
+    "format": "stream-status",
+    "v": 0,
+    "source": {
+      "id": "k3v9q2x7m1",
+      "boot": "7c1e04a2",
+      "seq": 812,
+      "software": "example-encoder/0.1.0"
+    },
+    "generated": "2026-11-14T21:03:05.120Z",
+    "valid_for_ms": 12000,
+    "live": {
+      "state": "live",
+      "since": "2026-11-14T20:41:10Z"
+    },
+    "findings": [
+      {
+        "code": "link.idle_connected",
+        "subject": {
+          "kind": "link",
+          "id": "wwan1"
+        },
+        "status": "active",
+        "severity": "info",
+        "confidence": "measured",
+        "since": "2026-11-14T21:02:41Z",
+        "as_of": "2026-11-14T21:04:00Z",
+        "still_live": true,
+        "evidence": [
+          {
+            "key": "link.tx_rate",
+            "value": 640,
+            "unit": "bit/s",
+            "window_ms": 20000
+          },
+          {
+            "key": "link.quiet_ms",
+            "value": 24000,
+            "unit": "ms"
+          },
+          {
+            "key": "bond.carrying_links",
+            "value": 2,
+            "unit": "count"
+          }
+        ],
+        "summary": "Modem 2 is connected but carrying almost nothing. The stream is live on the other links."
+      }
+    ],
+    "checked": []
+  }
+}

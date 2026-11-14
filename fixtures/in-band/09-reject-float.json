@@ -1,0 +1,5 @@
+{
+  "description": "A float in t: floats are not allowed.",
+  "cbor_hex": "a4616261616166016174f93e00617600",
+  "expect": "reject"
+}

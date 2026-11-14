@@ -1,0 +1,75 @@
+{
+  "description": "A keyframe message with the active findings.",
+  "message": {
+    "v": 0,
+    "b": "7c1e04a2",
+    "t": 1794690185120,
+    "f": 54000,
+    "ck": "s",
+    "c": "cam",
+    "s": 812,
+    "sev": "c",
+    "ttl": 6000,
+    "fd": [
+      [
+        "capture.signal_lost",
+        "capture",
+        "hdmi",
+        "c",
+        1794690175000
+      ],
+      [
+        "audio.silent",
+        "audio",
+        "program",
+        "w",
+        1794690172000
+      ]
+    ]
+  },
+  "cbor_hex": "aa616268376331653034613261636363616d616619d2f0617319032c61741b000001a1dbdef7a061760062636b6173626664828573636170747572652e7369676e616c5f6c6f737467636170747572656468646d6961631b000001a1dbded018856c617564696f2e73696c656e7465617564696f6770726f6772616d61771b000001a1dbdec4606373657661636374746c191770",
+  "cbor_bytes": 148,
+  "nal_h264_hex": "0605a48e9bc50184474a47adc32e36cd0859f4aa616268376331653034613261636363616d616619d2f0617319032c61741b00000301a1dbdef7a061760062636b6173626664828573636170747572652e7369676e616c5f6c6f737467636170747572656468646d6961631b00000301a1dbded018856c617564696f2e73696c656e7465617564696f6770726f6772616d61771b00000301a1dbdec4606373657661636374746c19177080",
+  "nal_hevc_hex": "4e0105a48e9bc50184474a47adc32e36cd0859f4aa616268376331653034613261636363616d616619d2f0617319032c61741b00000301a1dbdef7a061760062636b6173626664828573636170747572652e7369676e616c5f6c6f737467636170747572656468646d6961631b00000301a1dbded018856c617564696f2e73696c656e7465617564696f6770726f6772616d61771b00000301a1dbdec4606373657661636374746c19177080",
+  "expanded": {
+    "via": "in-band",
+    "v": 0,
+    "source": {
+      "boot": "7c1e04a2",
+      "seq": 812
+    },
+    "frame": {
+      "wall_ms": 1794690185120,
+      "number": 54000,
+      "clock": "synced",
+      "content": "camera"
+    },
+    "highest_severity": "critical",
+    "findings": [
+      {
+        "code": "capture.signal_lost",
+        "subject": {
+          "kind": "capture",
+          "id": "hdmi"
+        },
+        "status": "active",
+        "severity": "critical",
+        "since": "2026-11-14T21:02:55Z",
+        "still_live": null
+      },
+      {
+        "code": "audio.silent",
+        "subject": {
+          "kind": "audio",
+          "id": "program"
+        },
+        "status": "active",
+        "severity": "warning",
+        "since": "2026-11-14T21:02:52Z",
+        "still_live": null
+      }
+    ],
+    "findings_complete": true,
+    "valid_for_ms": 6000
+  }
+}

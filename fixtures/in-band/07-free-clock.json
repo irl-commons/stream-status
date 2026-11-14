@@ -1,0 +1,29 @@
+{
+  "description": "A sender without a synced clock: delay per hop can't be computed.",
+  "message": {
+    "v": 0,
+    "b": "7c1e04a2",
+    "t": 1794690185120,
+    "f": 7,
+    "ck": "f",
+    "c": "pat"
+  },
+  "cbor_hex": "a6616268376331653034613261636370617461660761741b000001a1dbdef7a061760062636b6166",
+  "cbor_bytes": 40,
+  "nal_h264_hex": "0605388e9bc50184474a47adc32e36cd0859f4a6616268376331653034613261636370617461660761741b00000301a1dbdef7a061760062636b616680",
+  "nal_hevc_hex": "4e0105388e9bc50184474a47adc32e36cd0859f4a6616268376331653034613261636370617461660761741b00000301a1dbdef7a061760062636b616680",
+  "expanded": {
+    "via": "in-band",
+    "v": 0,
+    "source": {
+      "boot": "7c1e04a2"
+    },
+    "frame": {
+      "wall_ms": 1794690185120,
+      "number": 7,
+      "clock": "free",
+      "content": "pattern"
+    },
+    "valid_for_ms": 6000
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "description": "A validity under one second.",
+  "error": "valid_for_ms",
+  "snapshot": {
+    "format": "stream-status",
+    "v": 0,
+    "source": {
+      "id": "k3v9q2x7m1",
+      "boot": "7c1e04a2",
+      "seq": 812,
+      "software": "example-encoder/0.1.0"
+    },
+    "generated": "2026-11-14T21:03:05.120Z",
+    "valid_for_ms": 500,
+    "live": {
+      "state": "live",
+      "since": "2026-11-14T20:41:10Z"
+    },
+    "findings": [],
+    "checked": []
+  }
+}

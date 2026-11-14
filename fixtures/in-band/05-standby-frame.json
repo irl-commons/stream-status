@@ -1,0 +1,31 @@
+{
+  "description": "A standby frame: downstream freeze detectors must not call it frozen.",
+  "message": {
+    "v": 0,
+    "b": "7c1e04a2",
+    "t": 1794690185120,
+    "f": 54013,
+    "ck": "s",
+    "c": "stb",
+    "rep": 30
+  },
+  "cbor_hex": "a76162683763316530346132616363737462616619d2fd61741b000001a1dbdef7a061760062636b617363726570181e",
+  "cbor_bytes": 48,
+  "nal_h264_hex": "0605408e9bc50184474a47adc32e36cd0859f4a76162683763316530346132616363737462616619d2fd61741b00000301a1dbdef7a061760062636b617363726570181e80",
+  "nal_hevc_hex": "4e0105408e9bc50184474a47adc32e36cd0859f4a76162683763316530346132616363737462616619d2fd61741b00000301a1dbdef7a061760062636b617363726570181e80",
+  "expanded": {
+    "via": "in-band",
+    "v": 0,
+    "source": {
+      "boot": "7c1e04a2"
+    },
+    "frame": {
+      "wall_ms": 1794690185120,
+      "number": 54013,
+      "clock": "synced",
+      "content": "standby",
+      "repeated": 30
+    },
+    "valid_for_ms": 6000
+  }
+}

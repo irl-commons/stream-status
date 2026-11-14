@@ -1,0 +1,5 @@
+{
+  "description": "No wall clock: rejected as a whole.",
+  "cbor_hex": "a361626161616601617600",
+  "expect": "reject"
+}

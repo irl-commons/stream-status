@@ -1,0 +1,23 @@
+{
+  "description": "A new top-level field without the x_<owner>_ prefix.",
+  "error": "does not match any of the regexes",
+  "snapshot": {
+    "format": "stream-status",
+    "v": 0,
+    "source": {
+      "id": "k3v9q2x7m1",
+      "boot": "7c1e04a2",
+      "seq": 812,
+      "software": "example-encoder/0.1.0"
+    },
+    "generated": "2026-11-14T21:03:05.120Z",
+    "valid_for_ms": 12000,
+    "live": {
+      "state": "live",
+      "since": "2026-11-14T20:41:10Z"
+    },
+    "findings": [],
+    "checked": [],
+    "notes": "hello"
+  }
+}

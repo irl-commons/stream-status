@@ -1,0 +1,121 @@
+{
+  "description": "Values from a newer minor version: unknown status reads unknown, unknown severity reads warning, unknown codes use the summary or a generic line, unknown fields are ignored.",
+  "steps": [
+    {
+      "rx_ms": 0,
+      "receive": {
+        "format": "stream-status",
+        "v": 0,
+        "source": {
+          "id": "k3v9q2x7m1",
+          "boot": "7c1e04a2",
+          "seq": 1,
+          "software": "example-encoder/0.1.0"
+        },
+        "generated": "2026-11-14T21:03:05.120Z",
+        "valid_for_ms": 12000,
+        "live": {
+          "state": "broadcasting",
+          "since": null
+        },
+        "findings": [
+          {
+            "code": "link.idle_connected",
+            "subject": {
+              "kind": "link",
+              "id": "wwan1"
+            },
+            "status": "flapping",
+            "severity": "info",
+            "confidence": "measured",
+            "since": "2026-11-14T21:02:41Z",
+            "as_of": "2026-11-14T21:03:04Z",
+            "still_live": true,
+            "evidence": [
+              {
+                "key": "link.tx_rate",
+                "value": 640,
+                "unit": "bit/s",
+                "window_ms": 20000
+              },
+              {
+                "key": "link.quiet_ms",
+                "value": 24000,
+                "unit": "ms"
+              },
+              {
+                "key": "bond.carrying_links",
+                "value": 2,
+                "unit": "count"
+              }
+            ],
+            "summary": "Modem 2 is connected but carrying almost nothing. The stream is live on the other links."
+          },
+          {
+            "code": "relay.backlog",
+            "subject": {
+              "kind": "relay",
+              "id": "edge1"
+            },
+            "status": "active",
+            "severity": "fatal",
+            "since": "2026-11-14T21:03:05.120Z",
+            "still_live": true,
+            "summary": "The relay is falling behind.",
+            "new_field": true
+          },
+          {
+            "code": "upstream.ingest_slow",
+            "subject": {
+              "kind": "upstream",
+              "id": "rtmp"
+            },
+            "status": "active",
+            "severity": "critical",
+            "since": "2026-11-14T21:03:05.120Z",
+            "still_live": null
+          }
+        ],
+        "checked": [],
+        "new_top_field": {
+          "a": 1
+        }
+      }
+    },
+    {
+      "at_ms": 1,
+      "expect": {
+        "live": "unknown",
+        "findings": [
+          {
+            "code": "link.idle_connected",
+            "kind": "link",
+            "id": "wwan1",
+            "status": "unknown",
+            "severity": "info",
+            "known": true,
+            "text": "Connected, carrying almost nothing"
+          },
+          {
+            "code": "relay.backlog",
+            "kind": "relay",
+            "id": "edge1",
+            "status": "active",
+            "severity": "warning",
+            "known": false,
+            "text": "The relay is falling behind."
+          },
+          {
+            "code": "upstream.ingest_slow",
+            "kind": "upstream",
+            "id": "rtmp",
+            "status": "active",
+            "severity": "critical",
+            "known": false,
+            "text": "critical on upstream:rtmp"
+          }
+        ]
+      }
+    }
+  ]
+}

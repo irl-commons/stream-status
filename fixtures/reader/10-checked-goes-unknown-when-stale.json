@@ -1,0 +1,59 @@
+{
+  "description": "Checked parts read unknown once the snapshot is stale.",
+  "steps": [
+    {
+      "rx_ms": 0,
+      "receive": {
+        "format": "stream-status",
+        "v": 0,
+        "source": {
+          "id": "k3v9q2x7m1",
+          "boot": "7c1e04a2",
+          "seq": 1,
+          "software": "example-encoder/0.1.0"
+        },
+        "generated": "2026-11-14T21:03:05.120Z",
+        "valid_for_ms": 12000,
+        "live": {
+          "state": "live",
+          "since": "2026-11-14T20:41:10Z"
+        },
+        "findings": [],
+        "checked": [
+          {
+            "subject": {
+              "kind": "link",
+              "id": "wwan0"
+            },
+            "state": "fine",
+            "as_of": "2026-11-14T21:03:04Z"
+          }
+        ]
+      }
+    },
+    {
+      "at_ms": 1,
+      "expect": {
+        "checked": [
+          {
+            "kind": "link",
+            "id": "wwan0",
+            "state": "fine"
+          }
+        ]
+      }
+    },
+    {
+      "at_ms": 12000,
+      "expect": {
+        "checked": [
+          {
+            "kind": "link",
+            "id": "wwan0",
+            "state": "unknown"
+          }
+        ]
+      }
+    }
+  ]
+}

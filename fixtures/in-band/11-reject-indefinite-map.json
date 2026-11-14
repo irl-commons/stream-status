@@ -1,0 +1,5 @@
+{
+  "description": "Indefinite-length encoding is not deterministic CBOR.",
+  "cbor_hex": "bf61760061626161617401616601ff",
+  "expect": "reject"
+}

@@ -1,0 +1,25 @@
+{
+  "description": "The four required keys only.",
+  "message": {
+    "v": 0,
+    "b": "7c1e04a2",
+    "t": 1794690185120,
+    "f": 54012
+  },
+  "cbor_hex": "a46162683763316530346132616619d2fc61741b000001a1dbdef7a0617600",
+  "cbor_bytes": 31,
+  "nal_h264_hex": "06052f8e9bc50184474a47adc32e36cd0859f4a46162683763316530346132616619d2fc61741b00000301a1dbdef7a061760080",
+  "nal_hevc_hex": "4e01052f8e9bc50184474a47adc32e36cd0859f4a46162683763316530346132616619d2fc61741b00000301a1dbdef7a061760080",
+  "expanded": {
+    "via": "in-band",
+    "v": 0,
+    "source": {
+      "boot": "7c1e04a2"
+    },
+    "frame": {
+      "wall_ms": 1794690185120,
+      "number": 54012
+    },
+    "valid_for_ms": 6000
+  }
+}

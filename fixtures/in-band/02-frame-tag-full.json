@@ -1,0 +1,39 @@
+{
+  "description": "A per-frame tag with clock state, content, counters and the highest severity.",
+  "message": {
+    "v": 0,
+    "b": "7c1e04a2",
+    "t": 1794690185120,
+    "f": 54012,
+    "ck": "s",
+    "c": "cam",
+    "rep": 0,
+    "drp": 0,
+    "id": "k3v9q2x7m1",
+    "s": 812,
+    "sev": "i"
+  },
+  "cbor_hex": "ab616268376331653034613261636363616d616619d2fc617319032c61741b000001a1dbdef7a061760062636b61736269646a6b337639713278376d3163647270006372657000637365766169",
+  "cbor_bytes": 77,
+  "nal_h264_hex": "06055d8e9bc50184474a47adc32e36cd0859f4ab616268376331653034613261636363616d616619d2fc617319032c61741b00000301a1dbdef7a061760062636b61736269646a6b337639713278376d316364727000637265700063736576616980",
+  "nal_hevc_hex": "4e01055d8e9bc50184474a47adc32e36cd0859f4ab616268376331653034613261636363616d616619d2fc617319032c61741b00000301a1dbdef7a061760062636b61736269646a6b337639713278376d316364727000637265700063736576616980",
+  "expanded": {
+    "via": "in-band",
+    "v": 0,
+    "source": {
+      "boot": "7c1e04a2",
+      "id": "k3v9q2x7m1",
+      "seq": 812
+    },
+    "frame": {
+      "wall_ms": 1794690185120,
+      "number": 54012,
+      "clock": "synced",
+      "content": "camera",
+      "repeated": 0,
+      "dropped": 0
+    },
+    "highest_severity": "info",
+    "valid_for_ms": 6000
+  }
+}

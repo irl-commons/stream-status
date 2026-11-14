@@ -1,0 +1,30 @@
+{
+  "description": "A key from a later draft is ignored.",
+  "message": {
+    "v": 0,
+    "b": "7c1e04a2",
+    "t": 1794690185120,
+    "f": 54014,
+    "zz": [
+      1,
+      2,
+      3
+    ]
+  },
+  "cbor_hex": "a56162683763316530346132616619d2fe61741b000001a1dbdef7a0617600627a7a83010203",
+  "cbor_bytes": 38,
+  "nal_h264_hex": "0605368e9bc50184474a47adc32e36cd0859f4a56162683763316530346132616619d2fe61741b00000301a1dbdef7a0617600627a7a8301020380",
+  "nal_hevc_hex": "4e0105368e9bc50184474a47adc32e36cd0859f4a56162683763316530346132616619d2fe61741b00000301a1dbdef7a0617600627a7a8301020380",
+  "expanded": {
+    "via": "in-band",
+    "v": 0,
+    "source": {
+      "boot": "7c1e04a2"
+    },
+    "frame": {
+      "wall_ms": 1794690185120,
+      "number": 54014
+    },
+    "valid_for_ms": 6000
+  }
+}

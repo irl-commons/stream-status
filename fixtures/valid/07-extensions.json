@@ -1,0 +1,69 @@
+{
+  "description": "Extension fields, an owner-prefixed code and kind, and the draft session_id hook.",
+  "snapshot": {
+    "format": "stream-status",
+    "v": 0,
+    "source": {
+      "id": "k3v9q2x7m1",
+      "boot": "7c1e04a2",
+      "seq": 812,
+      "software": "example-encoder/0.1.0"
+    },
+    "generated": "2026-11-14T21:03:05.120Z",
+    "valid_for_ms": 12000,
+    "live": {
+      "state": "live",
+      "since": "2026-11-14T20:41:10Z"
+    },
+    "findings": [
+      {
+        "code": "x_example.relay.backlog",
+        "subject": {
+          "kind": "x_example_relay",
+          "id": "edge1"
+        },
+        "status": "active",
+        "severity": "warning",
+        "since": "2026-11-14T21:03:00Z",
+        "still_live": true,
+        "x_example_rule": "r7",
+        "evidence": [
+          {
+            "key": "x_example.relay.queue_ms",
+            "value": 1800,
+            "unit": "ms"
+          }
+        ]
+      },
+      {
+        "code": "link.idle_connected",
+        "subject": {
+          "kind": "link",
+          "id": "wwan1"
+        },
+        "status": "active",
+        "severity": "info",
+        "confidence": "measured",
+        "since": "2026-11-14T21:02:41Z",
+        "as_of": "2026-11-14T21:03:04Z",
+        "still_live": true,
+        "evidence": [
+          {
+            "key": "link.tx_rate",
+            "value": 512,
+            "unit": "bit/s"
+          },
+          {
+            "key": "x_example.link.weight",
+            "value": 3,
+            "unit": "count"
+          }
+        ],
+        "summary": "Modem 2 is connected but carrying almost nothing. The stream is live on the other links."
+      }
+    ],
+    "checked": [],
+    "session_id": "draft-3f9a2c",
+    "x_example_build": "field"
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "description": "More findings than fit: more is set, findings_complete is false.",
+  "message": {
+    "v": 0,
+    "b": "7c1e04a2",
+    "t": 1794690185120,
+    "f": 54060,
+    "sev": "w",
+    "fd": [
+      [
+        "link.idle_connected",
+        "link",
+        "wwan1",
+        "i",
+        1794690161000
+      ]
+    ],
+    "more": true
+  },
+  "cbor_hex": "a76162683763316530346132616619d32c61741b000001a1dbdef7a06176006266648185736c696e6b2e69646c655f636f6e6e6563746564646c696e6b657777616e3161691b000001a1dbde9968637365766177646d6f7265f5",
+  "cbor_bytes": 90,
+  "nal_h264_hex": "06056a8e9bc50184474a47adc32e36cd0859f4a76162683763316530346132616619d32c61741b00000301a1dbdef7a06176006266648185736c696e6b2e69646c655f636f6e6e6563746564646c696e6b657777616e3161691b00000301a1dbde9968637365766177646d6f7265f580",
+  "nal_hevc_hex": "4e01056a8e9bc50184474a47adc32e36cd0859f4a76162683763316530346132616619d32c61741b00000301a1dbdef7a06176006266648185736c696e6b2e69646c655f636f6e6e6563746564646c696e6b657777616e3161691b00000301a1dbde9968637365766177646d6f7265f580",
+  "expanded": {
+    "via": "in-band",
+    "v": 0,
+    "source": {
+      "boot": "7c1e04a2"
+    },
+    "frame": {
+      "wall_ms": 1794690185120,
+      "number": 54060
+    },
+    "highest_severity": "warning",
+    "findings": [
+      {
+        "code": "link.idle_connected",
+        "subject": {
+          "kind": "link",
+          "id": "wwan1"
+        },
+        "status": "active",
+        "severity": "info",
+        "since": "2026-11-14T21:02:41Z",
+        "still_live": null
+      }
+    ],
+    "findings_complete": false,
+    "valid_for_ms": 6000
+  }
+}

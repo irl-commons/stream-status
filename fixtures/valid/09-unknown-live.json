@@ -1,0 +1,45 @@
+{
+  "description": "The sender can't tell whether the stream reaches the receiver.",
+  "snapshot": {
+    "format": "stream-status",
+    "v": 0,
+    "source": {
+      "id": "k3v9q2x7m1",
+      "boot": "7c1e04a2",
+      "seq": 812,
+      "software": "example-encoder/0.1.0"
+    },
+    "generated": "2026-11-14T21:03:05.120Z",
+    "valid_for_ms": 12000,
+    "live": {
+      "state": "unknown",
+      "since": null
+    },
+    "findings": [
+      {
+        "code": "audio.silent",
+        "subject": {
+          "kind": "audio",
+          "id": "program"
+        },
+        "status": "active",
+        "severity": "warning",
+        "confidence": "likely",
+        "since": "2026-11-14T21:02:52Z",
+        "still_live": null,
+        "evidence": [
+          {
+            "key": "audio.silent_ms",
+            "value": 13000,
+            "unit": "ms"
+          }
+        ],
+        "recovery": {
+          "by": "guide"
+        },
+        "summary": "No sound in your stream for 10 s. You're still live. Check the mic."
+      }
+    ],
+    "checked": []
+  }
+}
