@@ -149,6 +149,13 @@ The format borrows on purpose:
 - OBS's broadcast performance metrics, which already ride in SEI messages: the
   model for the in-band form.
 
+## Related
+
+[stream-session](https://github.com/openstreambox/stream-session) is the
+companion format for shows with several devices or several people: which
+show a snapshot belongs to (`session_id`), who is in charge, and which
+snapshots each person may see.
+
 ## License
 
 [MIT](LICENSE).
