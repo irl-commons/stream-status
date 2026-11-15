@@ -1,0 +1,75 @@
+{
+  "format": "stream-status-fixtures",
+  "v": 0,
+  "suites": {
+    "valid": {
+      "capability": "validate",
+      "files": [
+        "valid/01-nothing-wrong.json",
+        "valid/02-idle-link.json",
+        "valid/03-camera-lost-and-silence.json",
+        "valid/04-standby.json",
+        "valid/05-cleared-recently.json",
+        "valid/06-power-board-unknown.json",
+        "valid/07-extensions.json",
+        "valid/08-not-live.json",
+        "valid/09-unknown-live.json"
+      ]
+    },
+    "invalid": {
+      "capability": "validate",
+      "files": [
+        "invalid/01-missing-still-live.json",
+        "invalid/02-duplicate-identity.json",
+        "invalid/03-unregistered-code.json",
+        "invalid/04-wrong-subject-kind.json",
+        "invalid/05-unregistered-evidence.json",
+        "invalid/06-wrong-unit.json",
+        "invalid/07-evidence-value-not-allowed.json",
+        "invalid/08-cleared-too-old.json",
+        "invalid/09-checked-contradicts.json",
+        "invalid/10-still-live-while-not-live.json",
+        "invalid/11-as-of-after-generated.json",
+        "invalid/12-unknown-top-field.json",
+        "invalid/13-bad-severity.json",
+        "invalid/14-valid-for-too-short.json",
+        "invalid/15-cleared-is-not-a-severity.json",
+        "invalid/16-free-text-evidence.json",
+        "invalid/17-source-id-with-spaces.json",
+        "invalid/18-duplicate-checked.json",
+        "invalid/19-impossible-date.json"
+      ]
+    },
+    "reader": {
+      "capability": "reader",
+      "files": [
+        "reader/01-fresh-then-stale.json",
+        "reader/02-replace-not-merge.json",
+        "reader/03-out-of-order-ignored.json",
+        "reader/04-gap.json",
+        "reader/05-restart.json",
+        "reader/06-unknown-values-never-look-better.json",
+        "reader/07-unreadable-finding.json",
+        "reader/08-rejected-snapshot.json",
+        "reader/09-sender-clock-ignored.json",
+        "reader/10-checked-goes-unknown-when-stale.json"
+      ]
+    },
+    "in-band": {
+      "capability": "in-band",
+      "files": [
+        "in-band/01-frame-tag-minimal.json",
+        "in-band/02-frame-tag-full.json",
+        "in-band/03-keyframe-digest.json",
+        "in-band/04-digest-truncated.json",
+        "in-band/05-standby-frame.json",
+        "in-band/06-unknown-key-ignored.json",
+        "in-band/07-free-clock.json",
+        "in-band/08-reject-missing-t.json",
+        "in-band/09-reject-float.json",
+        "in-band/10-reject-wrong-type.json",
+        "in-band/11-reject-indefinite-map.json"
+      ]
+    }
+  }
+}

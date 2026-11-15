@@ -1,0 +1,370 @@
+// Generated from schema/stream-status.v0.schema.json by scripts/generate.mjs. Do not edit.
+// Run `npm run generate` after changing the source.
+
+/** The v0 snapshot schema (JSON Schema 2020-12), as published in schema/. */
+export const schema = {
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/openstreambox/stream-status/schema/stream-status.v0.schema.json",
+  "title": "stream-status snapshot, v0 (draft)",
+  "description": "A sender's complete current findings. Producer schema: extension fields must start with x_<owner>_. Readers must also accept unknown fields (spec section 4).",
+  "type": "object",
+  "required": [
+    "format",
+    "v",
+    "source",
+    "generated",
+    "valid_for_ms",
+    "live",
+    "findings",
+    "checked"
+  ],
+  "properties": {
+    "format": {
+      "const": "stream-status"
+    },
+    "v": {
+      "const": 0
+    },
+    "source": {
+      "$ref": "#/$defs/source"
+    },
+    "generated": {
+      "$ref": "#/$defs/datetime"
+    },
+    "valid_for_ms": {
+      "type": "integer",
+      "minimum": 1000,
+      "maximum": 600000
+    },
+    "live": {
+      "$ref": "#/$defs/live"
+    },
+    "findings": {
+      "type": "array",
+      "maxItems": 64,
+      "items": {
+        "$ref": "#/$defs/finding"
+      }
+    },
+    "checked": {
+      "type": "array",
+      "maxItems": 64,
+      "items": {
+        "$ref": "#/$defs/check"
+      }
+    },
+    "session_id": {
+      "description": "Draft hook: shared id across one stream's senders. Rules not specified in v0.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64
+    }
+  },
+  "patternProperties": {
+    "^x_[a-z0-9]+_[a-z0-9_]+$": true
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "datetime": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]{1,9})?(Z|[+-][0-9]{2}:[0-9]{2})$"
+    },
+    "code": {
+      "type": "string",
+      "maxLength": 96,
+      "pattern": "^(x_[a-z0-9]+\\.)?[a-z][a-z0-9_]*\\.[a-z][a-z0-9_]*$"
+    },
+    "source": {
+      "type": "object",
+      "required": [
+        "id",
+        "boot",
+        "seq"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_-]{4,64}$"
+        },
+        "boot": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^\\S+$"
+        },
+        "seq": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "software": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        }
+      },
+      "patternProperties": {
+        "^x_[a-z0-9]+_[a-z0-9_]+$": true
+      },
+      "additionalProperties": false
+    },
+    "live": {
+      "type": "object",
+      "required": [
+        "state",
+        "since"
+      ],
+      "properties": {
+        "state": {
+          "enum": [
+            "live",
+            "not_live",
+            "unknown"
+          ]
+        },
+        "since": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/datetime"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "patternProperties": {
+        "^x_[a-z0-9]+_[a-z0-9_]+$": true
+      },
+      "additionalProperties": false
+    },
+    "subject": {
+      "type": "object",
+      "required": [
+        "kind",
+        "id"
+      ],
+      "properties": {
+        "kind": {
+          "anyOf": [
+            {
+              "enum": [
+                "stream",
+                "capture",
+                "audio",
+                "power",
+                "heat",
+                "hardware",
+                "link",
+                "transport",
+                "relay",
+                "hub",
+                "upstream",
+                "platform"
+              ]
+            },
+            {
+              "type": "string",
+              "pattern": "^x_[a-z0-9]+_[a-z0-9_]+$",
+              "maxLength": 64
+            }
+          ]
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^\\S+$"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        }
+      },
+      "patternProperties": {
+        "^x_[a-z0-9]+_[a-z0-9_]+$": true
+      },
+      "additionalProperties": false
+    },
+    "evidence": {
+      "type": "object",
+      "required": [
+        "key",
+        "value"
+      ],
+      "properties": {
+        "key": {
+          "type": "string",
+          "maxLength": 96,
+          "pattern": "^(x_[a-z0-9]+\\.)?[a-z][a-z0-9_]*(\\.[a-z0-9_]+)+$"
+        },
+        "value": {
+          "oneOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64
+            }
+          ]
+        },
+        "unit": {
+          "type": "string",
+          "maxLength": 16
+        },
+        "window_ms": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": false
+    },
+    "recovery": {
+      "type": "object",
+      "required": [
+        "by"
+      ],
+      "properties": {
+        "by": {
+          "enum": [
+            "auto",
+            "ask",
+            "guide",
+            "none"
+          ]
+        },
+        "action": {
+          "$ref": "#/$defs/code"
+        },
+        "state": {
+          "enum": [
+            "pending",
+            "running",
+            "done",
+            "failed"
+          ]
+        }
+      },
+      "patternProperties": {
+        "^x_[a-z0-9]+_[a-z0-9_]+$": true
+      },
+      "additionalProperties": false
+    },
+    "finding": {
+      "type": "object",
+      "required": [
+        "code",
+        "subject",
+        "status",
+        "severity",
+        "since",
+        "still_live"
+      ],
+      "properties": {
+        "code": {
+          "$ref": "#/$defs/code"
+        },
+        "subject": {
+          "$ref": "#/$defs/subject"
+        },
+        "status": {
+          "enum": [
+            "active",
+            "cleared",
+            "unknown"
+          ]
+        },
+        "severity": {
+          "enum": [
+            "info",
+            "warning",
+            "critical"
+          ]
+        },
+        "confidence": {
+          "enum": [
+            "measured",
+            "likely",
+            "possible"
+          ]
+        },
+        "since": {
+          "$ref": "#/$defs/datetime"
+        },
+        "as_of": {
+          "$ref": "#/$defs/datetime"
+        },
+        "still_live": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "evidence": {
+          "type": "array",
+          "maxItems": 8,
+          "items": {
+            "$ref": "#/$defs/evidence"
+          }
+        },
+        "recovery": {
+          "$ref": "#/$defs/recovery"
+        },
+        "worsened": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        }
+      },
+      "patternProperties": {
+        "^x_[a-z0-9]+_[a-z0-9_]+$": true
+      },
+      "additionalProperties": false
+    },
+    "check": {
+      "type": "object",
+      "required": [
+        "subject",
+        "state",
+        "as_of"
+      ],
+      "properties": {
+        "subject": {
+          "$ref": "#/$defs/subject"
+        },
+        "state": {
+          "enum": [
+            "fine",
+            "finding",
+            "unknown"
+          ]
+        },
+        "as_of": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/datetime"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "patternProperties": {
+        "^x_[a-z0-9]+_[a-z0-9_]+$": true
+      },
+      "additionalProperties": false
+    }
+  }
+} as const;

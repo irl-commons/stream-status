@@ -39,6 +39,8 @@ How this fits with the other open standards for IRL streaming:
 | [`codes/v0.json`](codes/v0.json) | The registry of finding codes |
 | [`fixtures/`](fixtures/README.md) | Valid and invalid snapshots, reader cases, in-band bytes |
 | [`tools/stream_status.py`](tools/stream_status.py) | Validator, reference reader and in-band codec (Python 3, needs `jsonschema`) |
+| [`packages/`](packages/README.md) | Language packages built from the schema: [TypeScript](packages/typescript/README.md) now, Swift, Kotlin and Rust planned |
+| [`tools/conformance.py`](tools/conformance.py) | Checks that every implementation passes the fixtures and agrees with the others |
 | [`SECURITY.md`](SECURITY.md) | How to report a security problem |
 
 ## Why a shared format
@@ -130,6 +132,13 @@ up from deltas, so a missed message costs nothing.
 pip install jsonschema
 python3 tools/stream_status.py validate my-snapshot.json
 python3 tools/stream_status.py test        # runs every fixture
+```
+
+Or with Node, from [`packages/typescript`](packages/typescript/README.md):
+
+```sh
+npm ci && npm run build
+node dist/src/cli.js inspect my-snapshot.json
 ```
 
 [Send your first snapshot](docs/getting-started.md) walks through this step by step.
