@@ -11,7 +11,7 @@ language: a snapshot is just JSON.
 ## 1. Get the checker
 
 ```sh
-git clone https://github.com/openstreambox/stream-status
+git clone https://github.com/irl-commons/stream-status
 cd stream-status
 pip install jsonschema
 python3 tools/stream_status.py test
@@ -167,4 +167,4 @@ answers step by step. `tools/stream_status.py` has a small reference reader
   the snapshot and what a screen could say.
 - [FAQ](faq.md)
 - [The full spec](../spec/v0.md)
-- Questions or doubts: [Discussions](https://github.com/openstreambox/stream-status/discussions).
+- Questions or doubts: [Discussions](https://github.com/irl-commons/stream-status/discussions).
