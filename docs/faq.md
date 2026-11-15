@@ -102,4 +102,4 @@ The reader rules keep older readers safe.
 
 In [Discussions](https://github.com/irl-commons/stream-status/discussions).
 If you'd rather not post in public, write to hello@irlcommons.org or ask
-[on Discord](https://discord.gg/3B9b9n9N6).
+[on Discord](https://discord.gg/KChVwU6fjk).
