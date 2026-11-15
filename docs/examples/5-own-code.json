@@ -1,0 +1,53 @@
+{
+  "format": "stream-status",
+  "v": 0,
+  "source": {
+    "id": "r8t2w6y4",
+    "boot": "b0a1",
+    "seq": 1,
+    "software": "my-relay/2.3.0"
+  },
+  "generated": "2026-11-14T21:03:05.000Z",
+  "valid_for_ms": 12000,
+  "live": {
+    "state": "live",
+    "since": "2026-11-14T20:41:12Z"
+  },
+  "findings": [
+    {
+      "code": "x_myrelay.relay.backlog",
+      "subject": {
+        "kind": "relay",
+        "id": "edge1"
+      },
+      "status": "active",
+      "severity": "warning",
+      "confidence": "measured",
+      "since": "2026-11-14T21:02:50Z",
+      "still_live": true,
+      "evidence": [
+        {
+          "key": "x_myrelay.relay.queue_ms",
+          "value": 1800,
+          "unit": "ms",
+          "window_ms": 10000
+        }
+      ],
+      "recovery": {
+        "by": "auto",
+        "state": "running"
+      },
+      "summary": "The relay is 1.8 s behind. The stream is still live."
+    }
+  ],
+  "checked": [
+    {
+      "subject": {
+        "kind": "relay",
+        "id": "edge1"
+      },
+      "state": "finding",
+      "as_of": "2026-11-14T21:03:04Z"
+    }
+  ]
+}

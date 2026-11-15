@@ -17,5 +17,6 @@ jobs:
           python-version: "3.12"
       - run: python -m pip install "jsonschema==4.23.0"
       - run: python tools/stream_status.py test
+      - run: python tools/stream_status.py validate docs/examples/*.json
       - run: python -m json.tool schema/stream-status.v0.schema.json > /dev/null
       - run: python -m json.tool codes/v0.json > /dev/null

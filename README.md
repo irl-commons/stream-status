@@ -19,12 +19,20 @@ much it matters to viewers, how sure the sender is, and whether the stream is
 still live.
 
 **Status: v0, a draft.** Field names can still change between v0 drafts. From
-v1 on, changes are additive only. MIT licensed.
+v1 on, changes are additive only. No app uses it yet. MIT licensed.
+
+**New here?** [Send your first snapshot](docs/getting-started.md) in about ten
+minutes, then read the [worked examples](docs/examples.md) and the
+[FAQ](docs/faq.md). What changed is in the [changelog](docs/CHANGELOG.md).
+Questions and doubts go to [Discussions](https://github.com/openstreambox/stream-status/discussions).
+How this fits with the other open standards for IRL streaming:
+[openstreambox.org/open-standards.html](https://openstreambox.org/open-standards.html).
 
 ## What's here
 
 | Path | What it is |
 | --- | --- |
+| [`docs/`](docs/getting-started.md) | A ten-minute guide, worked examples, an FAQ and the changelog |
 | [`spec/v0.md`](spec/v0.md) | The format: snapshot, finding, reader rules, codes, versioning |
 | [`spec/in-band-v0.md`](spec/in-band-v0.md) | A compact form of the same record carried inside the video (SEI), on paper |
 | [`schema/stream-status.v0.schema.json`](schema/stream-status.v0.schema.json) | JSON Schema (2020-12) for a snapshot |
@@ -123,6 +131,8 @@ pip install jsonschema
 python3 tools/stream_status.py validate my-snapshot.json
 python3 tools/stream_status.py test        # runs every fixture
 ```
+
+[Send your first snapshot](docs/getting-started.md) walks through this step by step.
 
 ## Adding a code
 
