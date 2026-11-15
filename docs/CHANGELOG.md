@@ -9,6 +9,7 @@ here.
 - Docs for implementers: [Send your first snapshot](getting-started.md),
   [worked examples](examples.md) with snapshots that CI validates, and an
   [FAQ](faq.md). No change to the format.
+- The README names the OpenStreamBox Initiative, which started the format.
 
 ## v0 draft 1 (November 2026)
 

@@ -20,6 +20,8 @@ still live.
 
 **Status: v0, a draft.** Field names can still change between v0 drafts. From
 v1 on, changes are additive only. No app uses it yet. MIT licensed.
+Started by the OpenStreamBox Initiative, and open to anyone who builds IRL
+streaming tools.
 
 **New here?** [Send your first snapshot](docs/getting-started.md) in about ten
 minutes, then read the [worked examples](docs/examples.md) and the
