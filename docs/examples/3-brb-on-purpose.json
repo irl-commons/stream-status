@@ -1,0 +1,39 @@
+{
+  "format": "stream-status",
+  "v": 0,
+  "source": {
+    "id": "k3v9q2x7m1",
+    "boot": "7c1e04a2",
+    "seq": 820,
+    "software": "my-app/0.1.0"
+  },
+  "generated": "2026-11-14T21:05:00.000Z",
+  "valid_for_ms": 12000,
+  "live": {
+    "state": "live",
+    "since": "2026-11-14T20:41:10Z"
+  },
+  "findings": [
+    {
+      "code": "stream.standby",
+      "subject": {
+        "kind": "stream",
+        "id": "program"
+      },
+      "status": "active",
+      "severity": "info",
+      "confidence": "measured",
+      "since": "2026-11-14T21:04:00Z",
+      "still_live": true,
+      "evidence": [
+        {
+          "key": "stream.standby_ms",
+          "value": 60000,
+          "unit": "ms"
+        }
+      ],
+      "summary": "Your BRB screen is on air. Viewers see it."
+    }
+  ],
+  "checked": []
+}

@@ -1,0 +1,57 @@
+{
+  "format": "stream-status",
+  "v": 0,
+  "source": {
+    "id": "k3v9q2x7m1",
+    "boot": "7c1e04a2",
+    "seq": 830,
+    "software": "my-app/0.1.0"
+  },
+  "generated": "2026-11-14T21:05:30.000Z",
+  "valid_for_ms": 12000,
+  "live": {
+    "state": "live",
+    "since": "2026-11-14T20:41:10Z"
+  },
+  "findings": [
+    {
+      "code": "capture.signal_lost",
+      "subject": {
+        "kind": "capture",
+        "id": "hdmi"
+      },
+      "status": "cleared",
+      "severity": "critical",
+      "confidence": "measured",
+      "since": "2026-11-14T21:03:47Z",
+      "still_live": true,
+      "evidence": [
+        {
+          "key": "capture.stalled_samples",
+          "value": 2,
+          "unit": "count"
+        },
+        {
+          "key": "capture.input",
+          "value": "hdmi"
+        }
+      ],
+      "recovery": {
+        "by": "guide",
+        "state": "done"
+      },
+      "worsened": 1,
+      "summary": "The HDMI camera feed is back."
+    }
+  ],
+  "checked": [
+    {
+      "subject": {
+        "kind": "capture",
+        "id": "hdmi"
+      },
+      "state": "fine",
+      "as_of": "2026-11-14T21:05:29Z"
+    }
+  ]
+}
