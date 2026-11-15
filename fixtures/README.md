@@ -1,6 +1,10 @@
 # Fixtures
 
 `python3 tools/stream_status.py test` runs all of them.
+[`manifest.json`](manifest.json) lists every file by suite, so each language
+package runs the same cases; see [`packages/README.md`](../packages/README.md)
+for the runners and the report they write. After adding a fixture, run
+`python3 tools/stream_status.py manifest`; `test` fails until it's listed.
 
 | Folder | Each file | Passes when |
 | --- | --- | --- |

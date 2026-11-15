@@ -4,10 +4,13 @@
 Usage:
   stream_status.py validate FILE...      check snapshots (JSON files)
   stream_status.py test                  run every fixture
+  stream_status.py report                print a conformance report (JSON)
   stream_status.py inband-decode HEX     decode an in-band CBOR payload
   stream_status.py inband-fixtures       rewrite fixtures/in-band/*.json bytes
+  stream_status.py manifest              rewrite fixtures/manifest.json
 
-Needs Python 3.9+ and the `jsonschema` package for `validate` and `test`.
+Needs Python 3.9+ and the `jsonschema` package for `validate`, `test` and
+`report`.
 """
 from __future__ import annotations
 
@@ -22,6 +25,15 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 SCHEMA_PATH = ROOT / "schema" / "stream-status.v0.schema.json"
 CODES_PATH = ROOT / "codes" / "v0.json"
 FIXTURES = ROOT / "fixtures"
+MANIFEST_PATH = FIXTURES / "manifest.json"
+
+# Each fixture folder, what it checks, and the capability a runner needs for it.
+SUITES = (
+    ("valid", "validate"),
+    ("invalid", "validate"),
+    ("reader", "reader"),
+    ("in-band", "in-band"),
+)
 
 INBAND_UUID = bytes.fromhex("8e9bc50184474a47adc32e36cd0859f4")
 CLEARED_KEEP_MAX_S = 600
@@ -52,15 +64,40 @@ def parse_time(text: str) -> dt.datetime:
 # --------------------------------------------------------------------------
 # Sender validation: the schema plus the checks it can't express
 
+DATE_TIME = re.compile(
+    r"^(\d{4})-(\d{2})-(\d{2})[Tt](\d{2}):(\d{2}):(\d{2})(\.\d+)?([Zz]|[+-](\d{2}):(\d{2}))$"
+)
+
+
+def is_date_time(value: Any) -> bool:
+    """RFC 3339 date-time with real calendar limits.
+
+    Checked here rather than through jsonschema's optional format packages, so
+    the result doesn't depend on what else is installed.
+    """
+    if not isinstance(value, str):
+        return True
+    match = DATE_TIME.match(value)
+    if not match:
+        return False
+    year, month, day, hour, minute, second = (int(part) for part in match.groups()[:6])
+    try:
+        dt.datetime(year, month, day, hour, minute, second)
+    except ValueError:
+        return False
+    if match.group(9) is not None and (int(match.group(9)) > 23 or int(match.group(10)) > 59):
+        return False
+    return True
+
+
 def schema_errors(snapshot: Any) -> list[str]:
     try:
         import jsonschema
     except ImportError:  # pragma: no cover
         sys.exit("validate needs the jsonschema package: pip install jsonschema")
-    validator = jsonschema.Draft202012Validator(
-        load_json(SCHEMA_PATH),
-        format_checker=jsonschema.Draft202012Validator.FORMAT_CHECKER,
-    )
+    checker = jsonschema.FormatChecker()
+    checker.checks("date-time")(is_date_time)
+    validator = jsonschema.Draft202012Validator(load_json(SCHEMA_PATH), format_checker=checker)
     errors = []
     for error in sorted(validator.iter_errors(snapshot), key=lambda e: list(e.path)):
         where = "/".join(str(part) for part in error.path) or "(root)"
@@ -514,63 +551,114 @@ def inband_bytes(message: dict) -> dict:
 
 # --------------------------------------------------------------------------
 # Fixture runner
+#
+# Every implementation runs the same cases from fixtures/manifest.json and can
+# print the same report, so tools/conformance.py can check that they agree.
 
-def run_tests() -> int:
-    failures = 0
+def build_manifest() -> dict:
+    suites = {}
+    for folder, capability in SUITES:
+        files = sorted(f"{folder}/{p.name}" for p in (FIXTURES / folder).glob("*.json"))
+        suites[folder] = {"capability": capability, "files": files}
+    return {"format": "stream-status-fixtures", "v": 0, "suites": suites}
 
-    def fail(name: str, why: str) -> None:
-        nonlocal failures
-        failures += 1
-        print(f"FAIL {name}: {why}")
 
-    count = 0
-    for path in sorted((FIXTURES / "valid").glob("*.json")):
-        count += 1
-        errors = validate(load_json(path)["snapshot"])
-        if errors:
-            fail(path.name, "; ".join(errors))
-    for path in sorted((FIXTURES / "invalid").glob("*.json")):
-        count += 1
-        case = load_json(path)
+def run_case(suite: str, case: dict) -> tuple[list[str], dict]:
+    """Run one fixture; return (failures, observed)."""
+    failures: list[str] = []
+    if suite in ("valid", "invalid"):
         errors = validate(case["snapshot"])
+        if suite == "valid":
+            if errors:
+                failures.append("; ".join(errors))
+            return failures, {"valid": not errors}
+        matched = any(case["error"] in error for error in errors)
         if not errors:
-            fail(path.name, "expected an error, got none")
-        elif not any(case["error"] in error for error in errors):
-            fail(path.name, f"expected {case['error']!r}, got {errors}")
-    for path in sorted((FIXTURES / "reader").glob("*.json")):
-        count += 1
+            failures.append("expected an error, got none")
+        elif not matched:
+            failures.append(f"expected {case['error']!r}, got {errors}")
+        return failures, {"valid": not errors, "error_matched": matched}
+    if suite == "reader":
         reader = Reader()
-        for step_no, step in enumerate(load_json(path)["steps"]):
+        outcomes, views = [], []
+        for step_no, step in enumerate(case["steps"]):
             if "receive" in step:
                 outcome = reader.receive(step["rx_ms"], step["receive"])
+                outcomes.append(outcome)
                 if "outcome" in step and outcome != step["outcome"]:
-                    fail(path.name, f"step {step_no}: {outcome} != {step['outcome']}")
+                    failures.append(f"step {step_no}: {outcome} != {step['outcome']}")
             else:
                 view = reader.view(step["at_ms"])
+                views.append(view)
                 for key, expected in step["expect"].items():
                     if view.get(key) != expected:
-                        fail(path.name, f"step {step_no}: {key} = {view.get(key)!r},"
+                        failures.append(f"step {step_no}: {key} = {view.get(key)!r},"
                                         f" expected {expected!r}")
-    for path in sorted((FIXTURES / "in-band").glob("*.json")):
-        count += 1
-        case = load_json(path)
+        return failures, {"outcomes": outcomes, "views": views}
+    if suite == "in-band":
+        observed: dict[str, Any] = {}
         if "message" in case:
             produced = inband_bytes(case["message"])
+            observed["bytes"] = produced
             for key, value in produced.items():
                 if case.get(key) != value:
-                    fail(path.name, f"{key} differs from the encoder output")
-        payload = bytes.fromhex(case["cbor_hex"])
+                    failures.append(f"{key} differs from the encoder output")
         try:
-            expanded = inband_expand(payload)
+            expanded = inband_expand(bytes.fromhex(case["cbor_hex"]))
         except CborError as error:
+            observed["rejected"] = True
             if case.get("expect") != "reject":
-                fail(path.name, f"rejected: {error}")
-            continue
+                failures.append(f"rejected: {error}")
+            return failures, observed
+        observed.update(rejected=False, expanded=expanded)
         if case.get("expect") == "reject":
-            fail(path.name, "expected a reject")
+            failures.append("expected a reject")
         elif expanded != case["expanded"]:
-            fail(path.name, f"expanded differs: {json.dumps(expanded)}")
-    print(f"{count} fixtures, {failures} failures")
+            failures.append(f"expanded differs: {json.dumps(expanded)}")
+        return failures, observed
+    raise ValueError(f"unknown suite {suite}")
+
+
+def manifest_problems() -> list[str]:
+    if not MANIFEST_PATH.exists():
+        return ["fixtures/manifest.json is missing; run: stream_status.py manifest"]
+    if load_json(MANIFEST_PATH) != build_manifest():
+        return ["fixtures/manifest.json does not list exactly the fixture files;"
+                " run: stream_status.py manifest"]
+    return []
+
+
+def report() -> dict:
+    results = {}
+    for suite, entry in load_json(MANIFEST_PATH)["suites"].items():
+        for name in entry["files"]:
+            failures, observed = run_case(suite, load_json(FIXTURES / name))
+            result = {"result": "fail" if failures else "pass", "observed": observed}
+            if failures:
+                result["why"] = failures
+            results[name] = result
+    return {
+        "format": "stream-status-conformance-report",
+        "v": 0,
+        "implementation": "python",
+        "capabilities": sorted({capability for _, capability in SUITES}),
+        "results": results,
+    }
+
+
+def run_tests() -> int:
+    problems = manifest_problems()
+    for problem in problems:
+        print(f"FAIL {problem}")
+    if problems:
+        return 1
+    results = report()["results"]
+    failures = 0
+    for name, result in results.items():
+        for why in result.get("why", []):
+            failures += 1
+            print(f"FAIL {name}: {why}")
+    print(f"{len(results)} fixtures, {failures} failures")
     return 1 if failures else 0
 
 
@@ -601,6 +689,14 @@ def main(argv: list[str]) -> int:
         return status
     if command == "test":
         return run_tests()
+    if command == "report":
+        print(json.dumps(report(), indent=2, ensure_ascii=False))
+        return 0
+    if command == "manifest":
+        text = json.dumps(build_manifest(), indent=2, ensure_ascii=False) + "\n"
+        MANIFEST_PATH.write_text(text, encoding="utf-8")
+        print(f"wrote {MANIFEST_PATH.relative_to(ROOT)}")
+        return 0
     if command == "inband-decode" and len(args) == 1:
         try:
             print(json.dumps(inband_expand(bytes.fromhex(args[0])), indent=2))
