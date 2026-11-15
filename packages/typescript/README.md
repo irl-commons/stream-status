@@ -1,4 +1,4 @@
-# @openstreambox/stream-status (TypeScript)
+# @irl-commons/stream-status (TypeScript)
 
 Types, a validator and a reader for [stream-status v0](../../spec/v0.md)
 snapshots, plus the `stream-status inspect` command. No runtime
@@ -45,7 +45,7 @@ how an app reads a snapshot.
 ## Read snapshots in an app
 
 ```ts
-import { Reader } from "@openstreambox/stream-status";
+import { Reader } from "@irl-commons/stream-status";
 
 const reader = new Reader();
 socket.onmessage = (event) => reader.receive(event.data); // raw JSON text or an object
@@ -78,7 +78,7 @@ when you test, or when your app keeps its own monotonic clock.
 ## Check what you send
 
 ```ts
-import { validate, type Snapshot } from "@openstreambox/stream-status";
+import { validate, type Snapshot } from "@irl-commons/stream-status";
 
 const snapshot: Snapshot = buildSnapshot();
 const problems = validate(snapshot); // [] when it may be published
@@ -93,7 +93,7 @@ unique finding identities, registered codes, subject kinds and evidence,
 ## Codes
 
 ```ts
-import { CODES, REGISTRY } from "@openstreambox/stream-status";
+import { CODES, REGISTRY } from "@irl-commons/stream-status";
 
 CODES.CAPTURE_SIGNAL_LOST;                 // "capture.signal_lost"
 REGISTRY["capture.signal_lost"].plain_name; // "Camera feed stopped"

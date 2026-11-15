@@ -1,5 +1,5 @@
 {
-  "name": "@openstreambox/stream-status",
+  "name": "@irl-commons/stream-status",
   "version": "0.0.0",
   "private": true,
   "description": "Types, validator and reader for stream-status v0 snapshots",

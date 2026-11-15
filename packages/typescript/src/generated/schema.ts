@@ -4,7 +4,7 @@
 /** The v0 snapshot schema (JSON Schema 2020-12), as published in schema/. */
 export const schema = {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/openstreambox/stream-status/schema/stream-status.v0.schema.json",
+  "$id": "https://irlcommons.org/schemas/stream-status/v0.json",
   "title": "stream-status snapshot, v0 (draft)",
   "description": "A sender's complete current findings. Producer schema: extension fields must start with x_<owner>_. Readers must also accept unknown fields (spec section 4).",
   "type": "object",

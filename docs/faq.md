@@ -77,10 +77,19 @@ with test bytes, but no app sends it yet.
 
 ## How does this relate to stream-session?
 
-[stream-session](https://github.com/openstreambox/stream-session) is the
+[stream-session](https://github.com/irl-commons/stream-session) is the
 companion draft for shows with several devices or several people. It says
 which show a snapshot belongs to (`session_id`), who is in charge, and who
 may see which snapshot. A single device doesn't need it.
+
+## Why did the schema's `$id` change?
+
+The first v0 draft used `https://github.com/openstreambox/stream-status/schema/stream-status.v0.schema.json`
+as its `$id`. That was a name, not an address you could open, and it tied the
+format to one GitHub organisation. Since the move to IRL Commons the `$id` is
+`https://irlcommons.org/schemas/stream-status/v0.json`, an address on
+irlcommons.org that will serve the schema file. If you pinned the old identifier during its one day, replace it; the
+schema is otherwise the same.
 
 ## What happens when v1 comes?
 
@@ -91,6 +100,6 @@ The reader rules keep older readers safe.
 
 ## Where do I ask, or say what's missing?
 
-In [Discussions](https://github.com/openstreambox/stream-status/discussions).
-If you'd rather not post in public, write to hello@openstreambox.org or ask
-[on the OpenStreamBox Discord](https://discord.gg/3B9b9n9N6).
+In [Discussions](https://github.com/irl-commons/stream-status/discussions).
+If you'd rather not post in public, write to hello@irlcommons.org or ask
+[on Discord](https://discord.gg/3B9b9n9N6).

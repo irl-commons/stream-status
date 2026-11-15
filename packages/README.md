@@ -59,7 +59,7 @@ npx quicktype@26.0.0 --src-lang schema --lang swift --top-level Snapshot \
 
 ```sh
 npx quicktype@26.0.0 --src-lang schema --lang kotlin --framework kotlinx \
-  --package org.openstreambox.streamstatus --top-level Snapshot \
+  --package org.irlcommons.streamstatus --top-level Snapshot \
   schema/stream-status.v0.schema.json -o src/main/kotlin/Snapshot.kt
 ```
 

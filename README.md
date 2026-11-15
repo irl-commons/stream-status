@@ -20,15 +20,15 @@ still live.
 
 **Status: v0, a draft.** Field names can still change between v0 drafts. From
 v1 on, changes are additive only. No app uses it yet. MIT licensed.
-Started by the OpenStreamBox Initiative, and open to anyone who builds IRL
+Started by IRL Commons, and open to anyone who builds IRL
 streaming tools.
 
 **New here?** [Send your first snapshot](docs/getting-started.md) in about ten
 minutes, then read the [worked examples](docs/examples.md) and the
 [FAQ](docs/faq.md). What changed is in the [changelog](docs/CHANGELOG.md).
-Questions and doubts go to [Discussions](https://github.com/openstreambox/stream-status/discussions).
+Questions and doubts go to [Discussions](https://github.com/irl-commons/stream-status/discussions).
 How this fits with the other open standards for IRL streaming:
-[openstreambox.org/open-standards.html](https://openstreambox.org/open-standards.html).
+[irlcommons.org/open-standards.html](https://irlcommons.org/open-standards.html).
 
 ## What's here
 
@@ -172,7 +172,7 @@ The format borrows on purpose:
 
 ## Related
 
-[stream-session](https://github.com/openstreambox/stream-session) is the
+[stream-session](https://github.com/irl-commons/stream-session) is the
 companion format for shows with several devices or several people: which
 show a snapshot belongs to (`session_id`), who is in charge, and which
 snapshots each person may see.
