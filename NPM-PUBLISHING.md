@@ -2,7 +2,9 @@
 
 We publish `@irl-commons/stream-status` from `packages/typescript`.
 The first version is **0.1.0**, MIT licensed, with ESM, declarations and the
-`stream-status` CLI. It needs Node 22 or newer and has no runtime dependencies.
+`stream-status` CLI. Its supported Node runtimes are declared in
+[`packages/typescript/package.json`](packages/typescript/package.json) (`engines.node`),
+and it has no runtime dependencies.
 
 Our [shared release guide](https://github.com/irl-commons/irl-commons/blob/main/NPM-PUBLISHING.md)
 and [governance](https://github.com/irl-commons/irl-commons/blob/main/GOVERNANCE.md)
@@ -12,9 +14,11 @@ and the rules-change wait apply. Declare affiliations in the PR.
 
 ## One-time setup (an npm owner, with 2FA)
 
-Use Node 22.14 or newer and `npx npm@11.21.2` for the interactive commands.
+Use the Node version in [`.nvmrc`](.nvmrc) (`nvm install && nvm use`)
+and its bundled npm for the interactive commands. The npm version is recorded
+in `packages/typescript/package.json` (`packageManager`). Check `npm stage --help` first.
 Enable account 2FA and check the organisation ownership requirements in the
-shared guide. Log in with `npx npm@11.21.2 login`.
+shared guide. Log in with `npm login`.
 
 If the package does not exist yet, follow the shared guide's minimal two-file
 placeholder procedure, substituting `@irl-commons/stream-status` and `MIT`.
@@ -37,9 +41,9 @@ Keep the code out of shell history and clear it afterwards:
 ```sh
 read -r -s -p 'npm 2FA code: ' npm_config_otp; echo
 export npm_config_otp
-npx npm@11.21.2 trust github @irl-commons/stream-status --file publish.yml --repo irl-commons/stream-status --env npm-release --allow-stage-publish
+npm trust github @irl-commons/stream-status --file publish.yml --repo irl-commons/stream-status --env npm-release --allow-stage-publish
 unset npm_config_otp
-npx npm@11.21.2 trust list @irl-commons/stream-status
+npm trust list @irl-commons/stream-status
 ```
 
 Read back those exact settings. In package Settings → Publishing access, select

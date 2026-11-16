@@ -2,11 +2,12 @@
 
 Types, a validator and a reader for [stream-status v0](../../spec/v0.md)
 snapshots, plus the `stream-status inspect` command. No runtime
-dependencies. Node 22 or newer, or any bundler for the browser (the CLI
-needs Node).
+dependencies. Supported Node runtimes are declared in [`package.json`](package.json)
+(`engines.node`); the library also works with a browser bundler (the CLI needs Node).
 
 Version 0.1.0 is prepared for npm; the first release awaits setup and 2FA approval.
-See the [release guide](https://github.com/irl-commons/stream-status/blob/main/NPM-PUBLISHING.md). Build locally:
+See the [release guide](https://github.com/irl-commons/stream-status/blob/main/NPM-PUBLISHING.md). Build locally with the Node version in [`.nvmrc`](../../.nvmrc)
+(run `nvm install && nvm use` at the repository root):
 
 ```sh
 cd packages/typescript
