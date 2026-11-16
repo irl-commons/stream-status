@@ -1,0 +1,79 @@
+name: Publish package
+on:
+  push:
+    tags: ['v*']
+permissions: {}
+jobs:
+  verify:
+    if: github.repository_owner == 'irl-commons' && github.ref_type == 'tag' && startsWith(github.ref_name, 'v')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    defaults:
+      run:
+        working-directory: packages/typescript
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Require the tagged commit to be on main
+        run: |
+          git fetch --no-tags origin +refs/heads/main:refs/remotes/origin/main
+          git merge-base --is-ancestor "$GITHUB_SHA" refs/remotes/origin/main
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12'
+      - run: npm ci --ignore-scripts
+      - run: npm run generate:check && npm test && npm run test:package
+      - name: Check Python fixtures and cross-language conformance
+        working-directory: .
+        run: |
+          python -m pip install 'jsonschema==4.23.0'
+          python tools/stream_status.py test
+          python tools/stream_status.py validate docs/examples/*.json
+          python tools/stream_status.py report > python.json
+          (cd packages/typescript && npm run --silent conformance) > typescript.json
+          python tools/conformance.py python.json typescript.json
+      - name: Require a matching version tag
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: node -e 'if (process.env.RELEASE_TAG !== "v" + require("./package.json").version) process.exit(1)'
+      - run: npm pack --ignore-scripts
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: npm-package
+          path: packages/typescript/irl-commons-stream-status-*.tgz
+          if-no-files-found: error
+          retention-days: 1
+  publish:
+    needs: verify
+    if: github.repository_owner == 'irl-commons' && github.ref_type == 'tag' && startsWith(github.ref_name, 'v')
+    environment: npm-release
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: npm-package
+          path: release
+      - name: Require an npm CLI with staging support
+        run: |
+          node --input-type=module -e 'import {execFileSync} from "node:child_process"; const [major, minor, patch] = execFileSync("npm", ["--version"], {encoding:"utf8"}).trim().split(".").map(Number); if (major < 11 || (major === 11 && (minor < 5 || (minor === 5 && patch < 1)))) process.exit(1)'
+          npm stage --help
+      - run: npm stage publish ./release/irl-commons-stream-status-*.tgz --ignore-scripts --provenance --access public
