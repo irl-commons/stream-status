@@ -82,6 +82,13 @@ python3 tools/stream_status.py validate my-snapshot.json
 You should see `my-snapshot.json: ok`. If not, the checker names the field
 and the rule.
 
+Or with Node, from [`packages/typescript`](../packages/typescript/README.md):
+
+```sh
+npm ci && npm run build
+node dist/src/cli.js inspect my-snapshot.json
+```
+
 ## 5. Add a finding
 
 Say your app bonds three modems, and modem 2 has carried almost nothing for
@@ -160,6 +167,43 @@ If your app shows stream-status, three rules keep it honest:
 The cases in [`fixtures/reader/`](../fixtures/reader/) show the expected
 answers step by step. `tools/stream_status.py` has a small reference reader
 (`Reader`) you can compare yours with.
+
+## A complete snapshot
+
+```json
+{
+  "format": "stream-status",
+  "v": 0,
+  "source": { "id": "k3v9q2x7m1", "boot": "7c1e04a2", "seq": 812 },
+  "generated": "2026-11-14T21:03:05.120Z",
+  "valid_for_ms": 12000,
+  "live": { "state": "live", "since": "2026-11-14T20:41:10Z" },
+  "findings": [
+    {
+      "code": "link.idle_connected",
+      "subject": { "kind": "link", "id": "wwan1" },
+      "status": "active",
+      "severity": "info",
+      "confidence": "measured",
+      "since": "2026-11-14T21:02:41Z",
+      "still_live": true,
+      "evidence": [
+        { "key": "link.tx_rate", "value": 640, "unit": "bit/s", "window_ms": 20000 }
+      ],
+      "summary": "Modem 2 is connected but carrying almost nothing. The stream is live on the other links."
+    }
+  ],
+  "checked": [
+    { "subject": { "kind": "capture", "id": "hdmi" }, "state": "fine", "as_of": "2026-11-14T21:03:04Z" },
+    { "subject": { "kind": "power", "id": "board" }, "state": "unknown", "as_of": null }
+  ]
+}
+```
+
+A sender publishes the whole snapshot on every change and at least every few
+seconds, on whatever channel it already has (a WebSocket, an HTTP endpoint, a
+local file). A reader replaces its picture with each snapshot. Nothing builds
+up from deltas, so a missed message costs nothing.
 
 ## Next
 

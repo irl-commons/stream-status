@@ -98,6 +98,31 @@ line in the [changelog](CHANGELOG.md) and updated fixtures. From v1 on,
 changes are additive only: new optional fields, new codes, new values.
 The reader rules keep older readers safe.
 
+## How do I add a code?
+
+Open a pull request against `codes/v0.json` with the code, the parts it can be
+about, its evidence keys and a sentence on how it's detected. Codes name what
+is observed ("link.idle_connected"), not a guessed cause. A code never changes
+meaning; a new meaning gets a new code. Your own experimental codes can use
+`x_<you>.<area>.<condition>` without asking anyone.
+
+## What does it borrow from?
+
+The format borrows on purpose:
+
+- [NOALBS](https://github.com/NOALBS/nginx-obs-automatic-low-bitrate-switching):
+  the receiver stats IRL tools already share, and its pushed WebSocket feed
+  with a stale timeout.
+- Prometheus Alertmanager: alert identity and re-sending while firing.
+- The IETF alarm model (RFC 8632): an alarm is (resource, type), and cleared
+  is not a severity.
+- Kubernetes conditions and Nagios: true, false and **unknown**.
+- AMWA NMOS BCP-008: worse at once, better only after a hold. NMOS IS-07:
+  freshness by heartbeat.
+- OpenTelemetry and CloudEvents: export mappings.
+- OBS's broadcast performance metrics, which already ride in SEI messages: the
+  model for the in-band form.
+
 ## Where do I ask, or say what's missing?
 
 In [Discussions](https://github.com/irl-commons/stream-status/discussions).
